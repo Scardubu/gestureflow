@@ -36,12 +36,10 @@ env/
 .DS_Store
 Thumbs.db
 
-# Data
-data/
+# Data files (but not src/data code directory)
+/data/
 *.h5
 *.pkl
-*.csv
-*.json
 
 # Jupyter
 .ipynb_checkpoints/
