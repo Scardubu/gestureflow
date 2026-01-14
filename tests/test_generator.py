@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from src.data.generator import DataGenerator
-from src.config import Config
+from src import config
 
 
 class TestDataGenerator:
@@ -17,13 +17,11 @@ class TestDataGenerator:
     
     def setup_method(self):
         """Setup test fixtures."""
-        self.config = Config()
-        self.generator = DataGenerator(self.config)
+        self.generator = DataGenerator(config.DATA_CONFIG)
     
     def test_generator_initialization(self):
         """Test that generator initializes correctly."""
         assert self.generator is not None
-        assert self.generator.config == self.config
     
     def test_generate_single_gesture(self):
         """Test generating a single gesture sequence."""

@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from src.models.lstm_model import create_model
-from src.config import Config
+from src import config
 
 
 class TestLSTMModel:
@@ -18,8 +18,7 @@ class TestLSTMModel:
     
     def setup_method(self):
         """Setup test fixtures."""
-        self.config = Config()
-        self.model = create_model(self.config)
+        self.model = create_model(config.MODEL_CONFIG)
     
     def test_model_creation(self):
         """Test that model is created successfully."""
