@@ -1,5 +1,5 @@
 “””
-Configuration file for SwipePredict project.
+Configuration file for GestureFlow project.
 Contains all hyperparameters, paths, and system settings.
 “””
 import os
