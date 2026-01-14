@@ -55,8 +55,8 @@ class TestAPIEndpoints:
     def test_predict_endpoint_invalid_language(self, client):
         """Test predict endpoint with invalid language."""
         gesture_points = [
-            {"x": 0.0, "y": 0.0},
-            {"x": 1.0, "y": 1.0}
+            {"x": 0.0, "y": 0.0, "timestamp": 0},
+            {"x": 1.0, "y": 1.0, "timestamp": 100}
         ]
         
         request_data = {
@@ -84,8 +84,8 @@ class TestAPIEndpoints:
     def test_predict_endpoint_invalid_top_k(self, client):
         """Test predict endpoint with invalid top_k value."""
         gesture_points = [
-            {"x": 0.0, "y": 0.0},
-            {"x": 1.0, "y": 1.0}
+            {"x": 0.0, "y": 0.0, "timestamp": 0},
+            {"x": 1.0, "y": 1.0, "timestamp": 100}
         ]
         
         request_data = {

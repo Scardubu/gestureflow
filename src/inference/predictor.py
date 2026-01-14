@@ -44,7 +44,19 @@ class Predictor:
         # Normalize to [0, 1] range
         min_vals = gesture.min(axis=0)
         max_vals = gesture.max(axis=0)
-        normalized = (gesture - min_vals) / (max_vals - min_vals + 1e-8)
+        
+        # Check for zero range (all points identical on an axis)
+        range_vals = max_vals - min_vals
+        epsilon = 1e-6
+        
+        # For axes with zero range, keep original values (they're already the same)
+        # For axes with range, normalize
+        normalized = np.where(
+            range_vals < epsilon,
+            0.5,  # Center value for constant dimensions
+            (gesture - min_vals) / (range_vals + epsilon)
+        )
+        
         return normalized
     
     def _decode_prediction(self, index: int) -> str:

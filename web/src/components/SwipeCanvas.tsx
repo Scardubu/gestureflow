@@ -93,6 +93,7 @@ export default function SwipeCanvas({ onGestureComplete, disabled = false }: Swi
     let clientX: number, clientY: number;
 
     if ('touches' in event) {
+      if (event.touches.length === 0) return null;
       clientX = event.touches[0].clientX;
       clientY = event.touches[0].clientY;
     } else {
@@ -126,7 +127,19 @@ export default function SwipeCanvas({ onGestureComplete, disabled = false }: Swi
     const point = getCoordinates(event);
     
     if (point) {
-      setPoints(prev => [...prev, point]);
+      // Throttle updates to improve performance - only add point if it's far enough from the last point
+      setPoints(prev => {
+        if (prev.length === 0) return [point];
+        const lastPoint = prev[prev.length - 1];
+        const distance = Math.sqrt(
+          Math.pow(point.x - lastPoint.x, 2) + Math.pow(point.y - lastPoint.y, 2)
+        );
+        // Only add point if it's at least 3 pixels away from the last point
+        if (distance >= 3) {
+          return [...prev, point];
+        }
+        return prev;
+      });
     }
   };
 
